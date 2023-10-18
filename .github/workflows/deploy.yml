@@ -40,5 +40,5 @@ jobs:
           goarch: amd64
           md5sum: false
           binary_name: json2bash
-          extra_files: README.md install.sh
+          extra_files: README.md install.sh uninstall.sh
           retry: 3
