@@ -48,6 +48,5 @@ jobs:
           goos: linux
           goarch: amd64
           md5sum: false
-          pre_command: cp ./install.sh ./dist/
           binary_name: json2bash
           retry: 3
