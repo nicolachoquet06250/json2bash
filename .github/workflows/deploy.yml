@@ -1,3 +1,5 @@
+version: '3'
+
 on:
   push:
     tags:
@@ -26,14 +28,14 @@ jobs:
           draft: false
           prerelease: false
 
-  create_dist:
-    name: Create dist directory
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Create directory
-        run: mkdir ./dist
+#  create_dist:
+#    name: Create dist directory
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#      - name: Create directory
+#        run: mkdir ./dist
 
   build_binary:
     name: release linux/amd64
