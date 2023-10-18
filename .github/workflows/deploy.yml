@@ -50,3 +50,11 @@ jobs:
           md5sum: false
           binary_name: json2bash
           retry: 3
+      - uses: svenstaro/upload-release-action
+        with:
+          repo_token: ${{ secrets.TOKEN }}
+          repo_name: json2bash
+          file: 'install.sh'
+          tag: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          asset_name: json2bash-${{ github.ref }}-linux-amd64.tar.gz
