@@ -1,0 +1,51 @@
+on:
+  push:
+    tags:
+      - 'v*'
+
+name: Create release and add assets with binary
+
+jobs:
+  create_release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            ${{ github.event.head_commit.message }}
+          draft: false
+          prerelease: false
+
+  create_dist:
+    name: Create dist directory
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create directory
+        run: mkdir ./dist
+
+  build_binary:
+    name: release linux/amd64
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: wangyoucao577/go-release-action@v1.40
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          goos: linux
+          goarch: amd64
+          md5sum: false
+          pre_command: cp ./install.sh ./dist/
+          binary_name: json2bash
+          retry: 3
