@@ -58,5 +58,3 @@ jobs:
           tag: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           asset_name: json2bash-${{ github.ref }}-linux-amd64.tar.gz
-
-          #          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
