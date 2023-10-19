@@ -33,6 +33,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: DamianReeves/write-file-action@master
+        with:
+          path: .version
+          contents: ${{ github.ref }}
+          write-mode: append
       - uses: wangyoucao577/go-release-action@v1.40
         with:
           github_token: ${{ secrets.TOKEN }}
@@ -40,7 +45,5 @@ jobs:
           goarch: amd64
           md5sum: false
           binary_name: json2bash
-          pre_command: \
-            eval 'echo "${{ github.ref }}" > .version'
           extra_files: README.md install.sh uninstall.sh .version
           retry: 3
