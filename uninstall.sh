@@ -15,16 +15,15 @@ echo "        | |) / -_|_-< | ' \(_-<  _/ _' | | / _' |  _| / _ \ ' \ "
 echo "       |___/\___/__/_|_||_/__/\__\__,_|_|_\__,_|\__|_\___/_||_| "
 echo "                                                                "
 
-if [[ "$SUDO_PASSWD" == "" ]];then
-  echo "❌ Saisissez votre mot de passe sudo dans la variable d'environnement 'SUDO_PASSWD'"
-  return;
-fi
-
 if [[ ! -f /bin/json2bash ]];then
   echo "❌ Json2Bash n'est pas installé."
   return
 fi
 
-echo "$SUDO_PASSWD" | sudo -S rm -rf /bin/json2bash
+if [[ "$SUDO_PASSWD" == "" ]];then
+  sudo rm -rf /bin/json2bash
+else
+  echo "$SUDO_PASSWD" | sudo -S rm -rf /bin/json2bash
+fi
 
 echo "✅ Json2Bash à été desinstallé."
