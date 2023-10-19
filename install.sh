@@ -25,7 +25,12 @@ if [[ -f /bin/json2bash ]];then
   return
 fi
 
-potential_errors="$(echo "$SUDO_PASSWD" | sudo -S ln -s $(pwd)/json2bash /bin/json2bash 2>&1)"
+path="$(pwd)/json2bash"
+if [[ -d "${path}" ]] && [[ -f "${path}/json2bash" ]];then
+  path="${path}/json2bash"
+fi
+
+potential_errors="$(echo "$SUDO_PASSWD" | sudo -S ln -s "${path}" /bin/json2bash 2>&1)"
 
 if [[ "${potential_errors}" == "" ]];then
   echo "✅ Json2Bash à été installé dans le répertoire /bin"
