@@ -49,15 +49,15 @@ func convertJsonToBashArray(input string) string {
 						str = strings.Replace(str, "]", "", 1)
 						splitStr := strings.Split(str, " ")
 
-						newStr := "("
+						newStr := "\\\"("
 						for _, _v := range splitStr {
 							if inStr[0] {
-								newStr = newStr + "\\\\\\\"" + _v + "\\\\\\\" "
+								newStr = newStr + "\\\\\\\\\\\"" + _v + "\\\\\\\\\" "
 							} else {
-								newStr = newStr + "\\\"" + _v + "\\\" "
+								newStr = newStr + "\\\\\\\"" + _v + "\\\\\\\" "
 							}
 						}
-						newStr = newStr + ")"
+						newStr = newStr + ")\\\""
 
 						v = newStr
 					}
