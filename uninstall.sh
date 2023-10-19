@@ -17,12 +17,12 @@ echo "                                                                "
 
 if [[ "$SUDO_PASSWD" == "" ]];then
   echo "❌ Saisissez votre mot de passe sudo dans la variable d'environnement 'SUDO_PASSWD'"
-  exit 1;
+  return;
 fi
 
 if [[ ! -f /bin/json2bash ]];then
   echo "❌ Json2Bash n'est pas installé."
-  exit 0
+  return
 fi
 
 echo "$SUDO_PASSWD" | sudo -S rm -rf /bin/json2bash

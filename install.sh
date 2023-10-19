@@ -17,22 +17,26 @@ echo "                                                     "
 
 if [[ "$SUDO_PASSWD" == "" ]];then
   echo "❌ Saisissez votre mot de passe sudo dans la variable d'environnement 'SUDO_PASSWD'"
-  exit 1;
+  return ;
 fi
 
 if [[ -f /bin/json2bash ]];then
   echo "❌ Json2Bash à déjà été installé."
-  exit 0
+  return
 fi
 
-echo "$SUDO_PASSWD" | sudo -S ln -s $(pwd)/json2bash /bin/json2bash
+potential_errors="$(echo "$SUDO_PASSWD" | sudo -S ln -s $(pwd)/json2bash /bin/ 2>&1)"
 
-echo "✅ Json2Bash à été installé dans le répertoire /bin"
-echo "➡️ Vous pouvez utiliser le le logiciel comme ceci :"
-echo "  • json2bash -json=\"content json\""
-echo "  • json2bash -json \"content json\""
-echo "  • json2bash -json=\"url du fichier json\""
-echo "  • json2bash -json \"url du fichier json\""
-echo "  • json2bash -json=\"chemin local du fichier json via le protocol file://\""
-echo "  • json2bash -json \"chemin local du fichier json via le protocol file://\""
+if [[ "${potential_errors}" == "" ]];then
+  echo "✅ Json2Bash à été installé dans le répertoire /bin"
+  echo "➡️ Vous pouvez utiliser le le logiciel comme ceci :"
+  echo "  • json2bash -json=\"content json\""
+  echo "  • json2bash -json \"content json\""
+  echo "  • json2bash -json=\"url du fichier json\""
+  echo "  • json2bash -json \"url du fichier json\""
+  echo "  • json2bash -json=\"chemin local du fichier json via le protocol file://\""
+  echo "  • json2bash -json \"chemin local du fichier json via le protocol file://\""
+else
+  echo "❌ Json2Bash à déjà été installé."
+fi
 
