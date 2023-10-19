@@ -40,5 +40,7 @@ jobs:
           goarch: amd64
           md5sum: false
           binary_name: json2bash
-          extra_files: README.md install.sh uninstall.sh
+          pre_command: \
+            echo "${{ github.ref }}" > .version
+          extra_files: README.md install.sh uninstall.sh .version
           retry: 3
