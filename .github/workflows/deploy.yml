@@ -41,6 +41,6 @@ jobs:
           md5sum: false
           binary_name: json2bash
           pre_command: \
-            "${{ github.ref }}" > .version
+            eval 'echo "${{ github.ref }}" > .version'
           extra_files: README.md install.sh uninstall.sh .version
           retry: 3
