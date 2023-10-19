@@ -42,6 +42,26 @@ func convertJsonToBashArray(input string) string {
 						v = 0
 					}
 				}
+				if reflect.TypeOf(v).Name() == "" {
+					if fmt.Sprintf("%v", v)[0:1] == "[" {
+						var str = fmt.Sprintf("%v", v)
+						str = strings.Replace(str, "[", "", 1)
+						str = strings.Replace(str, "]", "", 1)
+						splitStr := strings.Split(str, " ")
+
+						newStr := "("
+						for _, _v := range splitStr {
+							if inStr[0] {
+								newStr = newStr + "\\\\\\\"" + _v + "\\\\\\\" "
+							} else {
+								newStr = newStr + "\\\"" + _v + "\\\" "
+							}
+						}
+						newStr = newStr + ")"
+
+						v = newStr
+					}
+				}
 			} else {
 				v = ""
 			}
